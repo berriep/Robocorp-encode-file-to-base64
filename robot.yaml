@@ -1,0 +1,13 @@
+tasks:
+  Encode Files to Base64:
+    robotTaskName: Encode Files to Base64
+  Encode Single File to Base64:
+    robotTaskName: Encode Single File to Base64
+condaConfigFile: conda.yaml
+ignoreFiles:
+- .gitignore
+artifactsDir: output
+PATH:
+- .
+PYTHONPATH:
+- .
