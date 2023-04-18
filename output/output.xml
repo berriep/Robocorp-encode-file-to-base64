@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 5.0.1 (Python 3.9.13 on darwin)" generated="20230418 08:51:11.958" rpa="true" schemaversion="3">
+<suite id="s1" name="Base64" source="/Users/barry/Documents/Robots/base64">
+<suite id="s1-s1" name="Tasks" source="/Users/barry/Documents/Robots/base64/tasks.robot">
+<test id="s1-s1-t1" name="Encode Files to Base64" line="14">
+<kw name="Log Directory Tree" library="RPA.FileSystem">
+<arg>${inputfolder}</arg>
+<doc>Logs all the files in the directory recursively.</doc>
+<msg timestamp="20230418 08:51:13.560" level="INFO">              example.json</msg>
+<status status="PASS" starttime="20230418 08:51:13.558" endtime="20230418 08:51:13.560"/>
+</kw>
+<kw name="List Files In Directory" library="RPA.FileSystem">
+<var>${files}</var>
+<arg>${inputfolder}</arg>
+<doc>Lists all the files in the given directory, relative to it.</doc>
+<msg timestamp="20230418 08:51:13.561" level="INFO">${files} = [File(path='/Users/barry/Documents/Robots/base64/Input/example.json', name='example.json', size=320, mtime=1681800328.8835917)]</msg>
+<status status="PASS" starttime="20230418 08:51:13.561" endtime="20230418 08:51:13.561"/>
+</kw>
+<for flavor="IN">
+<var>${file_path}</var>
+<value>@{files}</value>
+<iter>
+<var name="${file_path}">/Users/barry/Documents/Robots/base64/Input/example.json</var>
+<kw name="Log" library="BuiltIn">
+<arg>${file_path}</arg>
+<doc>Logs the given message with the given level.</doc>
+<msg timestamp="20230418 08:51:13.562" level="INFO">/Users/barry/Documents/Robots/base64/Input/example.json</msg>
+<status status="PASS" starttime="20230418 08:51:13.562" endtime="20230418 08:51:13.562"/>
+</kw>
+<kw name="Get File Extension" library="RPA.FileSystem">
+<var>${file_ext}</var>
+<arg>${file_path}</arg>
+<doc>Returns the suffix for the file.</doc>
+<msg timestamp="20230418 08:51:13.563" level="INFO">${file_ext} = .json</msg>
+<status status="PASS" starttime="20230418 08:51:13.562" endtime="20230418 08:51:13.563"/>
+</kw>
+<kw name="Get File Size" library="RPA.FileSystem">
+<var>${file_size}</var>
+<arg>${file_path}</arg>
+<doc>Returns the file size in bytes.</doc>
+<msg timestamp="20230418 08:51:13.563" level="INFO">${file_size} = 320</msg>
+<status status="PASS" starttime="20230418 08:51:13.563" endtime="20230418 08:51:13.563"/>
+</kw>
+<kw name="Get File Name" library="RPA.FileSystem">
+<var>${file_name}</var>
+<arg>${file_path}</arg>
+<doc>Returns only the full file name portion of a path.</doc>
+<msg timestamp="20230418 08:51:13.564" level="INFO">${file_name} = example.json</msg>
+<status status="PASS" starttime="20230418 08:51:13.563" endtime="20230418 08:51:13.564"/>
+</kw>
+<if>
+<branch type="IF" condition="$file_size &lt; ${maxfilesize}">
+<kw name="Encode File To Base64" library="encode_multi_filetypes_base64">
+<var>${base64_encoded}</var>
+<arg>${file_path}</arg>
+<msg timestamp="20230418 08:51:13.567" level="INFO">${base64_encoded} = ewogICAgIm5hbWUiOiAiSm9obiBEb2UiLAogICAgImFnZSI6IDM1LAogICAgImVtYWlsIjogImpvaG5kb2VAZXhhbXBsZS5jb20iLAogICAgInBob25lIjogIisxLTU1NS01NTUtNTU1NSIsCiAgICAiYWRkcmVzcyI6IHsKICAgICAgICAic3RyZWV0IjogIjEyMyBN...</msg>
+<status status="PASS" starttime="20230418 08:51:13.567" endtime="20230418 08:51:13.567"/>
+</kw>
+<kw name="Create File" library="RPA.FileSystem">
+<arg>${outputfolder}/${file_name}.base64.txt</arg>
+<arg>${base64_encoded}</arg>
+<arg>overwrite=${TRUE}</arg>
+<doc>Creates a new text file, and writes content if any is given.</doc>
+<status status="PASS" starttime="20230418 08:51:13.567" endtime="20230418 08:51:13.568"/>
+</kw>
+<status status="PASS" starttime="20230418 08:51:13.567" endtime="20230418 08:51:13.568"/>
+</branch>
+<branch type="ELSE">
+<kw name="Log" library="BuiltIn">
+<arg>File is to big: ${file_size}. Max size is ${maxfilesize}.</arg>
+<arg>console=${TRUE}</arg>
+<doc>Logs the given message with the given level.</doc>
+<status status="NOT RUN" starttime="20230418 08:51:13.569" endtime="20230418 08:51:13.569"/>
+</kw>
+<status status="NOT RUN" starttime="20230418 08:51:13.569" endtime="20230418 08:51:13.569"/>
+</branch>
+<status status="PASS" starttime="20230418 08:51:13.564" endtime="20230418 08:51:13.569"/>
+</if>
+<status status="PASS" starttime="20230418 08:51:13.562" endtime="20230418 08:51:13.569"/>
+</iter>
+<status status="PASS" starttime="20230418 08:51:13.561" endtime="20230418 08:51:13.569"/>
+</for>
+<doc>file_ext can be used to check up front if the file ext is suported. (.pdf,.doc,.docx,.xls,.xlsx,.json)
+file_size can be used to check up front if the file size is supported.
+variable maxfilesize holds the max size in bytes.</doc>
+<status status="PASS" starttime="20230418 08:51:13.558" endtime="20230418 08:51:13.569"/>
+</test>
+<status status="PASS" starttime="20230418 08:51:12.028" endtime="20230418 08:51:13.570"/>
+</suite>
+<status status="PASS" starttime="20230418 08:51:12.009" endtime="20230418 08:51:13.570"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tasks</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="Base64">Base64</stat>
+<stat pass="1" fail="0" skip="0" id="s1-s1" name="Tasks">Base64.Tasks</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
