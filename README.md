@@ -10,7 +10,7 @@ It has 2 keywords you can use for this:
  - `Encode Single File to Base64`
 
 
-## Supported formats
+## Supported file formats
  - .pdf 
  - .doc .docx 
  - .xls .xlsx 
@@ -25,7 +25,7 @@ Put your file(s) in the input folder
 ## Output
 A variable called `${base64_encoded}` holds the base64 value which you can use.
 
-The same value is written in a `${file_name}.base64.txt` file in the output folder. This is only for debugging.
+The same value is written in file (`${file_name}.base64.txt`) in the output folder. This is only for debugging.
 I would recommend to remove this part of the code in production.
 
 ## Possible adjustments
